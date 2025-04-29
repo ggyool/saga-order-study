@@ -1,11 +1,11 @@
-package com.ggyool.saga
+package com.ggyool.inventory
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SagaApplication
+class InventoryApplication
 
 fun main(args: Array<String>) {
-	runApplication<SagaApplication>(*args)
+    runApplication<InventoryApplication>(*args)
 }
