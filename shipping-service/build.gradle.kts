@@ -7,6 +7,7 @@ plugins {
 
 group = "com.ggyool"
 version = "0.0.1-SNAPSHOT"
+val springCloudStreamBinderKafkaVersion: String by project
 
 java {
     toolchain {
@@ -21,18 +22,18 @@ repositories {
 dependencies {
     implementation(project(":orchestrator-common"))
 
-//    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework.kafka:spring-kafka")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-//    runtimeOnly("com.mysql:mysql-connector-j")
-//    runtimeOnly("io.asyncer:r2dbc-mysql")
+    implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-reactive:$springCloudStreamBinderKafkaVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    runtimeOnly("com.mysql:mysql-connector-j")
+    runtimeOnly("io.asyncer:r2dbc-mysql")
 
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
     testImplementation("com.h2database:h2")
     testImplementation("io.mockk:mockk:1.14.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
