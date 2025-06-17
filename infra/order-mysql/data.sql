@@ -5,7 +5,7 @@ create table if not exists purchase_order (
    quantity int,
    unit_price int,
    amount int,
-   status varchar(100),
+   status varchar(20),
    delivery_date timestamp
 );
 

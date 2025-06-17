@@ -1,2 +1,38 @@
 server:
   port: 8083
+
+spring:
+  r2dbc:
+    url: r2dbc:mysql://localhost:3308/orderdb
+    username: user
+    password: password
+
+  cloud:
+    function:
+      definition: orderOrchestrator
+    stream:
+      default:
+        producer:
+          useNativeEncoding: true
+
+      bindings:
+        orderOrchestrator-in-0:
+          destination: payment-response,inventory-response,shipping-response
+          group: order-service-group
+        payment-request-channel:
+          destination: payment-request
+        inventory-request-channel:
+          destination: inventory-request
+        shipping-request-channel:
+          destination: shipping-request
+      kafka:
+        binder:
+          brokers: "localhost:9094"
+          consumer-properties:
+            "value.deserializer": org.springframework.kafka.support.serializer.JsonDeserializer
+            "key.deserializer": org.apache.kafka.common.serialization.StringDeserializer
+            "auto.offset.reset": "earliest"
+            "spring.json.trusted.packages": "com.ggyool.common.messages.*"
+          producer-properties:
+            "value.serializer": org.springframework.kafka.support.serializer.JsonSerializer
+            "key.serializer": org.apache.kafka.common.serialization.StringSerializer
